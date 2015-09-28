@@ -1,0 +1,12 @@
+redis:
+  scale: 1
+api-lb:
+  scale: 1
+  load_balancer_config:
+    name: djangolb config
+django-nginx:
+  scale: 1
+django:
+  scale: 1
+postgres:
+  scale: 1

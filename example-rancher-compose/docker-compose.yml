@@ -1,0 +1,65 @@
+redis:
+  restart: always
+  labels:
+    io.rancher.scheduler.affinity:host_label: service=redis
+  tty: true
+  image: redis:3.0
+  stdin_open: true
+api-lb:
+  ports:
+  - '80'
+  restart: always
+  labels:
+    io.rancher.scheduler.affinity:host_label: service=django
+    io.rancher.loadbalancer.target.django-nginx: 80=80
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - django-nginx:django-nginx
+  stdin_open: true
+django-nginx:
+  restart: always
+  labels:
+    io.rancher.scheduler.affinity:host_label: service=django
+  tty: true
+  image: tutum.co/thuongdinh/django-nginx:latest
+  links:
+  - django:django
+  stdin_open: true
+django:
+  restart: always
+  environment:
+    POSTGRES_PASSWORD: mysecretpass
+    POSTGRES_USER: postgresuser
+    DJANGO_SETTINGS_MODULE: config.settings.production
+    DJANGO_SECRET_KEY: 60f6616008004f368f7117a31f7a24de
+    DJANGO_ALLOWED_HOSTS: '*'
+    DJANGO_AWS_ACCESS_KEY_ID: ''
+    DJANGO_AWS_SECRET_ACCESS_KEY: ''
+    DJANGO_AWS_STORAGE_BUCKET_NAME: ''
+    DJANGO_MAILGUN_API_KEY: ''
+    DJANGO_MAILGUN_SERVER_NAME: ''
+    DJANGO_SERVER_EMAIL: ''
+    DJANGO_SECURE_SSL_REDIRECT: 'False'
+    DJANGO_SENTRY_DSN: https://60f6616008004f368f7117a31f7a24de:aed05ffdcb67453f99a61d45c22aff99@app.getsentry.com/52407
+  labels:
+    io.rancher.scheduler.affinity:host_label: service=django
+  tty: true
+  command:
+  - /gunicorn.sh
+  image: tutum.co/thuongdinh/django:latest
+  links:
+  - postgres:postgres
+  - redis:redis
+  stdin_open: true
+  user: django
+postgres:
+  restart: always
+  environment:
+    POSTGRES_PASSWORD: mysecretpass
+    POSTGRES_USER: postgresuser
+  labels:
+    io.rancher.scheduler.affinity:host_label: service=postgres
+  tty: true
+  image: postgres:9.4
+  stdin_open: true
