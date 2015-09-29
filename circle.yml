@@ -1,6 +1,7 @@
 machine:
   services:
-    - docker:1.19
+    - docker
+      - version:1.19
 
 dependencies:
   override:
