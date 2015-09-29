@@ -1,10 +1,10 @@
 machine:
-  services:
-    - docker
-      - version:1.19
+  python:
+    - version:2.7
 
 dependencies:
   override:
+    - wget -qO- https://get.docker.com/ | sh
     - sudo pip install --upgrade docker-compose
 
 test:
