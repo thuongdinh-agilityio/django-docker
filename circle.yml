@@ -8,4 +8,5 @@ dependencies:
 
 test:
   override:
+    - docker version
     - docker-compose -f todos/docker-compose-test.yml run django python manage.py test
