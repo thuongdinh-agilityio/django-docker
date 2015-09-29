@@ -15,4 +15,4 @@ dependencies:
 test:
   override:
     - docker version
-    - docker-compose -f todos/docker-compose-circleci.yml run django python /app/manage.py test
+    - docker-compose -f todos/docker-compose-circleci.yml run django python /app/manage.py test --settings=config.settings.test
