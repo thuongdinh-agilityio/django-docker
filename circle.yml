@@ -1,0 +1,11 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - sudo pip install --upgrade docker-compose
+
+test:
+  override:
+    - docker-compose -f todos/dev.yml run django python manage.py test
