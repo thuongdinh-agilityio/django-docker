@@ -12,5 +12,9 @@ from .local import *  # noqa
 
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
-# Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-DATABASES['default'] = 'postgres://ubuntu:@127.0.0.1:5432/circle_test'
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+DATABASES = {
+    # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
+    'default': env.db("DATABASE_URL", default="postgres:///todos"),
+}
+DATABASES['default']['ATOMIC_REQUESTS'] = True
