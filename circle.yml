@@ -5,9 +5,6 @@ machine:
       sudo chmod 0755 /usr/bin/docker
       sudo service docker start
 
-  environment:
-    DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/circle_test
-
   services:
     - postgresql
 
@@ -18,4 +15,4 @@ dependencies:
 test:
   override:
     - docker version
-    - docker-compose -f todos/docker-compose-test.yml run django python manage.py test
+    - docker-compose -f todos/docker-compose-circleci.yml run django python /app/manage.py test
