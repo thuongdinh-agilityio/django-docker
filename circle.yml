@@ -8,4 +8,4 @@ dependencies:
 
 test:
   override:
-    - docker-compose -f todos/dev.yml run django python manage.py test
+    - docker-compose -f todos/docker-compose-test.yml run django python manage.py test
