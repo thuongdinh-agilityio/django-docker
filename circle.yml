@@ -5,6 +5,12 @@ machine:
       sudo chmod 0755 /usr/bin/docker
       sudo service docker start
 
+  environment:
+    DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/circle_test
+
+  services:
+    - postgresql
+
 dependencies:
   override:
     - sudo pip install --upgrade docker-compose
