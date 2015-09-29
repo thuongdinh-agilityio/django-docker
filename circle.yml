@@ -5,9 +5,6 @@ machine:
       sudo chmod 0755 /usr/bin/docker
       sudo service docker start
 
-  services:
-    - postgresql
-
 dependencies:
   override:
     - sudo pip install --upgrade docker-compose
