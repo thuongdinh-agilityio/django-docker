@@ -13,6 +13,6 @@
 
 ### Run Unit Testing
 
-1. $ docker-compose -f dev.yml run django python manage.py test
+1. $ docker-compose -f dev.yml run django python manage.py test # testing
 2. $ docker-compose stop
 3. $ docker-compose rm
