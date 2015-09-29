@@ -1,5 +1,3 @@
 #!/bin/bash
-apt-get update
-apt-get -y install docker.io
-ln -sf /usr/bin/docker.io /usr/local/bin/docker
-sed -i '$acomplete -F _docker docker' /etc/bash_completion.d/docker.io
+curl https://get.docker.io/builds/Linux/x86_64/docker-latest -o /usr/local/bin/docker
+chmod +x /usr/local/bin/docker
